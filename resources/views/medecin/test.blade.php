@@ -1,0 +1,1 @@
+@include('medecin.Layout.app')
