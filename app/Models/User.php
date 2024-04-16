@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Medecin\Medecin;
+use App\Models\medecin\Post;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -61,7 +62,10 @@ class User extends Authenticatable
     // Modèle User
     public function medecin()
     {
-        return $this->hasMany(Medecin::class);
+        return $this->hasOne(Medecin::class);
     }
 
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
 }

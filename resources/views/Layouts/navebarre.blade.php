@@ -1,8 +1,8 @@
-<nav class="relative px-4 py-2 flex justify-between items-center bg-black bg-opacity-50 ">
+<nav class="relative py-2 flex justify-between px-6 md:px-60 items-center bg-indigo-500">
 
-    <a href="#" class="flex items-center">
+    <a href="/" class="flex items-center">
 
-        <h2 class="font-bold text-2xl">Soft <span class="bg-[#f84525] text-white px-2 rounded-md">Vital</span></h2>
+        <h2 class="font-bold text-3xl">Soft <span class="bg-[#f84525] text-white px-2 rounded-md">Vital</span></h2>
     </a>
 
     <div class="lg:hidden">
@@ -17,13 +17,12 @@
     <div class="hidden lg:flex">
 
         @if (!auth()->check())
-            <a href="#">
+            <a href="/docteur-profil">
                 <button
                     class=" py-1.5 px-3 m-1 text-center bg-white border rounded-md text-black  hover:bg-blue-400 hover:text-gray-100 dark:text-gray-200 dark:bg-violet-700 hidden lg:block">
-                    Vous êtes praticien ?
+                    Prendre un rendez-vous ici
                 </button>
             </a>
-
             <div>
                 <span class="hidden" id="util_data" data=""></span>
                 <a href="/Authentification"
@@ -33,14 +32,32 @@
                 </a>
             </div>
         @else
-            <a href="{{ route('logout') }}"><button
-                    class=" py-1.5 px-3 m-1 text-center bg-blue-800 rounded-md text-white dark:text-white dark:bg-purple-700 hidden lg:inline-block ">logout</button></a>
+            {{-- <a href="{{ route('logout') }}"><button
+                    class=" py-1.5 px-3 m-1 text-center bg-blue-800 rounded-md text-white dark:text-white dark:bg-purple-700 hidden lg:inline-block ">logout</button></a> --}}
+            <div class="text-lg lg:flex-grow flex justify-center items-center text-gray-500">
+                <a href="" class="block mt-4 lg:inline-block lg:mt-0 mr-8 hover:text-blue-400">
+                    Page d'accueil
+                </a>
+                @if (auth()->user()->role->first()->role === 'medecin')
 
+                <a href="/liste_des_rendez-vous" class="block mt-4 lg:inline-block lg:mt-0 mr-8 hover:text-blue-400">
+                    Mes heures de travail
+                </a>
+                <a href="" class="block mt-4 lg:inline-block lg:mt-0 hover:text-blue-400">
+                    Mes notfication
+                </a>
+                @endif
+            </div>
+        @endif
+    </div>
 
+    @if (auth()->check())
+        <div class=" right-0">
             <div @click.away="open = false" class="relative" x-data="{ open: false }">
                 <button @click="open = !open"
-                    class="flex flex-row items-center space-x-2 w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent md:w-auto md:inline md:mt-0 md:ml-4 hover:bg-gray-200 focus:bg-blue-800 focus:outline-none focus:shadow-outline">
-                    <span>Jane Doe</span>
+                    class="flex justify-center items-center space-x-2 w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent md:w-auto md:inline md:mt-0 md:ml-4 hover:bg-gray-200 focus:bg-blue-800 focus:outline-none focus:shadow-outline">
+                    <span
+                        class="">{{ ucfirst(substr(auth()->user()->nom, 0, 1)) . substr(auth()->user()->nom, 1) }}</span>
                     <img class="inline h-6 rounded-full"
                         src="https://avatars2.githubusercontent.com/u/24622175?s=60&amp;v=4">
                     <svg fill="currentColor" viewBox="0 0 20 20" :class="{ 'rotate-180': open, 'rotate-0': !open }"
@@ -59,24 +76,40 @@
                     class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
                     <div class="py-2 bg-white text-blue-800 text-sm rounded-sm border border-main-color shadow-sm">
                         @if (auth()->user()->role->first()->role === 'medecin')
-                            <a href="{{ route('profile') }}"
+                            <a href="{{route('dash.profile')}}"
                                 class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                                 href="#">Profile</a>
+                            <a href="{{ route('dashboard_medecin') }}"
+                                class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                                href="#">Mes postes</a>
+                            <a href="{{ route('calandrier') }}"
+                                class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                                href="#">Mon calandrier</a>
+                            <a href="{{route('Mes-rendez-vous')}}"
+                                class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                                href="#">Mes rendez-vous</a>
+                        @endif
+                        @if (auth()->user()->role->first()->role === 'admin')
+                        <a href="/dashboard"
+                                class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                                href="#">Dashboard</a>
                         @endif
 
-                        <a class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                            href="#">Settings</a>
                         <div class="border-b"></div>
                         <a href="{{ route('logout') }}"
-                            class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                            href="#">Logout</a>
+                            class="flex items-center gap-3 px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                            href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
+                                <path fill="black"
+                                    d="M5 3h6a3 3 0 0 1 3 3v4h-1V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-4h1v4a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3m3 9h11.25L16 8.75l.66-.75l4.5 4.5l-4.5 4.5l-.66-.75L19.25 13H8z" />
+                            </svg>
+                            <p>Se deconnecter</p>
+                        </a>
                     </div>
                 </div>
             </div>
-        @endif
-
-
-    </div>
+        </div>
+    @endif
 
 </nav>
 
@@ -124,7 +157,7 @@
                 </a>
 
                 <a class="block m-1 bg-gray-100 border border-gray-300 text-black  hover:bg-gray-100 dark:text-gray-300 dark:bg-gray-700 px-4 py-3 mb-3 text-sm text-center font-semibold rounded-xl"
-                    href="/login">
+                    href="/docteur-profil">
                     Vous êtes praticien ?
                 </a>
 

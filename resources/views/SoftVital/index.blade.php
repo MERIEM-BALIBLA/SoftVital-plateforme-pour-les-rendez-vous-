@@ -1,187 +1,345 @@
 @extends('Layouts.app')
 
 @section('content')
-    <div class="relative w-full bg-blue-500 py-20 px-10 mb-4 rounded-b-2xl">
-        <div class="text-center relative z-10 w-full">
-            <h2 class="text-2xl text-white font-medium title-font mb-16">Prenez rendez-vous avec votre médecin au cabinet
-            </h2>
+    <style>
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
 
-            <div class="sm:w-2/3 my-auto mx-auto px-4">
-                <form class=" ">
-                    <label for="default-search"
-                        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                    <div class="relative flex">
-                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                            </svg>
+        /*Start Animations*/
+        @-webkit-keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0;
+            }
+
+            to {
+                top: 0;
+                opacity: 1;
+            }
+        }
+
+        @keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0;
+            }
+
+            to {
+                top: 0;
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes zoomIn {
+            0% {
+                opacity: 0;
+                -webkit-transform: scale3d(0.3, 0.3, 0.3);
+                transform: scale3d(0.3, 0.3, 0.3);
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoomIn {
+            0% {
+                opacity: 0;
+                -webkit-transform: scale3d(0.3, 0.3, 0.3);
+                transform: scale3d(0.3, 0.3, 0.3);
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /*End Animations*/
+        /*
+            -- Start BackGround Animation
+            */
+        .area {
+            /* background: #575edf; */
+            /* dark:background-image:#575edf; */
+            background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+            width: 100%;
+            z-index: -1;
+        }
+
+
+        .circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 96%;
+            overflow: hidden;
+        }
+
+        .circles li {
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            animation: animate 25s linear infinite;
+            bottom: -150px;
+        }
+
+        .circles li:nth-child(1) {
+            left: 25%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+        }
+
+        .circles li:nth-child(2) {
+            left: 10%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 2s;
+            animation-duration: 12s;
+        }
+
+        .circles li:nth-child(3) {
+            left: 70%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 4s;
+        }
+
+        .circles li:nth-child(4) {
+            left: 40%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+            animation-duration: 18s;
+        }
+
+        .circles li:nth-child(5) {
+            left: 65%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 0s;
+        }
+
+        .circles li:nth-child(6) {
+            left: 75%;
+            width: 110px;
+            height: 110px;
+            animation-delay: 3s;
+        }
+
+        .circles li:nth-child(7) {
+            left: 35%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 7s;
+        }
+
+        .circles li:nth-child(8) {
+            left: 50%;
+            width: 25px;
+            height: 25px;
+            animation-delay: 15s;
+            animation-duration: 45s;
+        }
+
+        .circles li:nth-child(9) {
+            left: 20%;
+            width: 15px;
+            height: 15px;
+            animation-delay: 2s;
+            animation-duration: 35s;
+        }
+
+        .circles li:nth-child(10) {
+            left: 85%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 0s;
+            animation-duration: 11s;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 0;
+            }
+
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+                border-radius: 50%;
+            }
+        }
+
+       
+    </style>
+    
+    <div class="relative w-full mb-4 rounded-b-2xl area bg-indigo-500 dark:bg-orange-500">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div class=" py-40 px-10 rounded-b-2xl " {{-- style="opacity:3;" --}}>
+            <div class="text-start px-20 relative z-10 w-full">
+                {{-- <h2>Vous êtes professionnel de santé ?</h2> --}}
+                <h2 class="text-4xl text-black font-bold title-font mb-4">Vous êtes professionnel
+                    de santé ?
+                </h2>
+                <p class="text-xl text-gray-300">Comme des milliers de médecins, rejoignez la plateforme santé n°1 en Afrique.</p>
+
+                {{-- <div class="sm:w-2/3 my-auto mx-auto px-4">
+                    <form class=" ">
+                        <label for="default-search"
+                            class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                        <div class="relative flex">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                </svg>
+                            </div>
+                            <input type="search" id="default-search"
+                                class="block w-full p-4 ps-10 text-sm text-gray-900 border-r  border-gray-300 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Search Mockups, Logos..." />
+                            <input type="search" id="default-search"
+                                class="block w-full p-4 ps-10 text-sm text-gray-900 border-r  border-gray-300 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Search Mockups, Logos..." />
+                            <input type="search" id="default-search"
+                                class="block w-full p-4 ps-10 text-sm text-gray-900 border-r  border-gray-300 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Search Mockups, Logos..." />
+
+                            <button type="submit"
+                                class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                         </div>
-                        <input type="search" id="default-search"
-                            class="block w-full p-4 ps-10 text-sm text-gray-900 border-r  border-gray-300 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Search Mockups, Logos..." />
-                        <input type="search" id="default-search"
-                            class="block w-full p-4 ps-10 text-sm text-gray-900 border-r  border-gray-300 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Search Mockups, Logos..." />
-                        <input type="search" id="default-search"
-                            class="block w-full p-4 ps-10 text-sm text-gray-900 border-r  border-gray-300 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Search Mockups, Logos..." />
+                    </form>
 
-                        <button type="submit"
-                            class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
-                    </div>
-                </form>
-
+                </div> --}}
             </div>
-
         </div>
 
-        <div class="flex flex-wrap -m-4 mx-auto justify-center mt-8">
 
-        </div>
     </div>
 
-    <div class="absolute flex gap-8 top-72 left-0 right-0 mx-auto">
-        <div class="relative max-w-xl mx-auto">
-            <img class="h-64 w-full object-cover rounded-md"
-                src="https://images.unsplash.com/photo-1680725779155-456faadefa26" alt="Random image">
-            <div class="absolute inset-0 bg-gray-700 opacity-60 rounded-md"></div>
-            <div class="absolute inset-0 flex flex-col items-center justify-center">
-                <h2 class="text-white text-3xl font-bold">Get Lost in Mountains</h2>
-                <p>Hello hdhs zhh iaioz mlkzme slkls sppqksa</p>
+    <div class="md:absolute flex md:flex-row flex-col justify-center gap-8 md:top-80 md:left-0 md:right-0 mx-auto">
+
+        <div
+            class="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl  sm:max-w-sm sm:rounded-lg sm:px-10">
+            <span
+                class="absolute top-10 z-0 h-20 w-20 rounded-full bg-sky-500 transition-all duration-300 group-hover:scale-[10]"></span>
+            <div class="relative z-10 mx-auto max-w-md">
+                <span
+                    class="grid h-20 w-20 place-items-center rounded-full bg-sky-500 transition-all duration-300 group-hover:bg-sky-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="h-10 w-10 text-white transition-all">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                    </svg>
+                </span>
+                <div
+                    class="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
+                    <p>Perfect for learning how the framework works, prototyping a new idea, or creating a demo to share
+                        online.</p>
+                </div>
+                <div class="pt-5 text-base font-semibold leading-7">
+                    <p>
+                        <a href="#" class="text-sky-500 transition-all duration-300 group-hover:text-white">Read the
+                            docs
+                            &rarr;
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="relative max-w-xl mx-auto">
-            <img class="h-64 w-full object-cover rounded-md"
-                src="https://images.unsplash.com/photo-1680725779155-456faadefa26" alt="Random image">
-            <div class="absolute inset-0 bg-gray-700 opacity-60 rounded-md"></div>
-            <div class="absolute inset-0 flex items-center justify-center">
-                <h2 class="text-white text-3xl font-bold">Get Lost in Mountains</h2>
+
+        <div
+            class="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:max-w-sm sm:rounded-lg sm:px-10">
+            <span
+                class="absolute top-10 z-0 h-20 w-20 rounded-full bg-sky-500 transition-all duration-300 group-hover:scale-[10]"></span>
+            <div class="relative z-10 mx-auto max-w-md">
+                <span
+                    class="grid h-20 w-20 place-items-center rounded-full bg-sky-500 transition-all duration-300 group-hover:bg-sky-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="h-10 w-10 text-white transition-all">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                    </svg>
+                </span>
+                <div
+                    class="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
+                    <p>Perfect for learning how the framework works, prototyping a new idea, or creating a demo to share
+                        online.</p>
+                </div>
+                <div class="pt-5 text-base font-semibold leading-7">
+                    <p>
+                        <a href="#" class="text-sky-500 transition-all duration-300 group-hover:text-white">Read the
+                            docs
+                            &rarr;
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="relative max-w-xl mx-auto">
-            <img class="h-64 w-full object-cover rounded-md"
-                src="https://images.unsplash.com/photo-1680725779155-456faadefa26" alt="Random image">
-            <div class="absolute inset-0 bg-gray-700 opacity-60 rounded-md"></div>
-            <div class="absolute inset-0 flex items-center justify-center">
-                <h2 class="text-white text-3xl font-bold">Get Lost in Mountains</h2>
+        <div
+            class="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:max-w-sm sm:rounded-lg sm:px-10">
+            <span
+                class="absolute top-10 z-0 h-20 w-20 rounded-full bg-sky-500 transition-all duration-300 group-hover:scale-[10]"></span>
+            <div class="relative z-10 mx-auto max-w-md">
+                <span
+                    class="grid h-20 w-20 place-items-center rounded-full bg-sky-500 transition-all duration-300 group-hover:bg-sky-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="h-10 w-10 text-white transition-all">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                    </svg>
+                </span>
+                <div
+                    class="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
+                    <p>Perfect for learning how the framework works, prototyping a new idea, or creating a demo to share
+                        online.</p>
+                </div>
+                <div class="pt-5 text-base font-semibold leading-7">
+                    <p>
+                        <a href="#" class="text-sky-500 transition-all duration-300 group-hover:text-white">Read the
+                            docs
+                            &rarr;
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-
-    <section class="text-gray-600 body-font mt-56 dark:bg-gray-950">
+    {{-- </div> --}}
+    <section class="text-gray-600 body-font md:mt-56 dark:bg-gray-950">
         <div class="container px-5 py-24 mx-auto">
-            <h2 class="sm:text-3xl text-2xl font-medium title-font text-center text-gray-900 mb-20">SoftVital : au service
-                de votre santé
-            </h2>
-            <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
-                <div class="p-4 md:w-1/3 flex flex-col">
-                    <div
-                        class="ml-8 w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-4 flex-shrink-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="3em" height="3em" viewBox="0 0 128 128">
-                            <path fill="#bdbdbd"
-                                d="M6.81 35.5v75.03c0 3.12 2.9 5.21 6.32 7.61c3.53 2.48 5.48 2.25 7.17 2.25l95.86.62c3.77 0 5.03-2.57 5.03-5.34V35.5z" />
-                            <linearGradient id="notoSpiralCalendar0" x1="117.05" x2="117.05" y1="68.631"
-                                y2="111.352" gradientUnits="userSpaceOnUse">
-                                <stop offset=".337" stop-color="#616161" />
-                                <stop offset="1" stop-color="#616161" stop-opacity="0" />
-                            </linearGradient>
-                            <path fill="url(#notoSpiralCalendar0)" d="m121.19 115.66l-8.28-8.51V35.5l8.28 5.02z"
-                                opacity="0.29" />
-                            <path fill="#c62828"
-                                d="m121.19 41.22l-6.46-4.05L104.62 14h5.44c9.65 0 11.13 5.57 11.13 7.47z" />
-                            <path fill="#fafafa"
-                                d="M9.75 36.33v72.13c0 2.7 2.19 4.88 4.88 4.88h94.85c2.7 0 5.22-2.01 5.22-4.71v-72.3z" />
-                            <path fill="#f44336"
-                                d="M114.73 37.17H6.81V18.55c0-2.51 2.57-4.55 5.75-4.55h96.59c3.19 0 5.77 2.05 5.75 4.58z" />
-                            <path fill="#757575"
-                                d="M103.71 116.62c-3.18.39-6.36.55-9.54.83c-3.18.2-6.36.38-9.54.49c-3.18.16-6.36.19-9.54.28l-9.54.09l-9.54-.09c-3.18-.09-6.36-.13-9.54-.28c-3.18-.11-6.36-.29-9.54-.49c-3.18-.28-6.36-.45-9.54-.83v-.2l38.15-.1l38.15.1v.2z" />
-                            <path fill="#b3e5fc" d="M42.46 45.08V57.2h-26.3v49.25h52.15V94.18h38.74v-49.1z" />
-                            <ellipse cx="19.11" cy="19.8" fill="#af1e1e" rx="2.96" ry="3.3" />
-                            <path fill="#94d1e0"
-                                d="M20.48 17.08c-.41-.86-.69-1.93-.69-3.08c0-2.67 1.39-4.93 3.04-4.93c1.65 0 3.04 2.26 3.04 4.93h4.48c0-5.47-3.37-9.93-7.51-9.93S15.33 8.52 15.33 14c0 1.95.43 3.76 1.16 5.3c.67 1.39 2.1 2.01 3.37 1.34c1.06-.58 1.2-2.36.62-3.56" />
-                            <path fill="#2f7889"
-                                d="M30.35 14c0-3.35-1.27-6.31-3.19-8.11c.02.06.57 1.49-.21 2.86c-.79 1.4-2.43 1.18-2.43 1.18c.81.9 1.35 2.4 1.35 4.07z" />
-                            <ellipse cx="35.59" cy="19.8" fill="#af1e1e" rx="2.96" ry="3.3" />
-                            <path fill="#94d1e0"
-                                d="M36.96 17.08c-.41-.86-.69-1.93-.69-3.08c0-2.67 1.39-4.93 3.04-4.93s3.04 2.26 3.04 4.93h4.48c0-5.47-3.37-9.93-7.51-9.93S31.81 8.52 31.81 14c0 1.95.43 3.76 1.16 5.3c.67 1.39 2.1 2.01 3.37 1.34c1.06-.58 1.2-2.36.62-3.56" />
-                            <path fill="#2f7889"
-                                d="M43.64 5.89c.02.06.57 1.49-.21 2.86C42.64 10.14 41 9.93 41 9.93c.81.9 1.35 2.4 1.35 4.07h4.49c0-3.35-1.28-6.31-3.2-8.11" />
-                            <ellipse cx="52.06" cy="19.8" fill="#af1e1e" rx="2.96" ry="3.3" />
-                            <path fill="#94d1e0"
-                                d="M53.44 17.08c-.41-.86-.69-1.93-.69-3.08c0-2.67 1.39-4.93 3.04-4.93c1.65 0 3.04 2.26 3.04 4.93h4.48c0-5.47-3.37-9.93-7.51-9.93S48.29 8.52 48.29 14c0 1.95.43 3.76 1.16 5.3c.67 1.39 2.1 2.01 3.37 1.34c1.06-.58 1.2-2.36.62-3.56" />
-                            <path fill="#2f7889"
-                                d="M60.11 5.89c.02.06.57 1.49-.21 2.86c-.79 1.4-2.43 1.18-2.43 1.18c.81.9 1.35 2.4 1.35 4.07h4.51c.01-3.35-1.29-6.31-3.22-8.11" />
-                            <ellipse cx="68.54" cy="19.8" fill="#af1e1e" rx="2.96" ry="3.3" />
-                            <path fill="#94d1e0"
-                                d="M69.92 17.08c-.41-.86-.69-1.93-.69-3.08c0-2.67 1.39-4.93 3.04-4.93c1.65 0 3.04 2.26 3.04 4.93h4.48c0-5.47-3.37-9.93-7.51-9.93S64.77 8.52 64.77 14c0 1.95.43 3.76 1.16 5.3c.67 1.39 2.1 2.01 3.37 1.34c1.06-.58 1.19-2.36.62-3.56" />
-                            <path fill="#2f7889"
-                                d="M76.59 5.89c.02.06.57 1.49-.21 2.86c-.79 1.4-2.43 1.18-2.43 1.18c.81.9 1.35 2.4 1.35 4.07h4.52c.01-3.35-1.3-6.31-3.23-8.11" />
-                            <ellipse cx="85.02" cy="19.8" fill="#af1e1e" rx="2.96" ry="3.3" />
-                            <path fill="#94d1e0"
-                                d="M86.39 17.08c-.41-.86-.69-1.93-.69-3.08c0-2.67 1.39-4.93 3.04-4.93s3.04 2.26 3.04 4.93h4.48c0-5.47-3.37-9.93-7.51-9.93S81.24 8.52 81.24 14c0 1.95.43 3.76 1.16 5.3c.67 1.39 2.1 2.01 3.37 1.34c1.06-.58 1.2-2.36.62-3.56" />
-                            <path fill="#2f7889"
-                                d="M93.07 5.89c.02.06.57 1.49-.21 2.86c-.79 1.4-2.43 1.18-2.43 1.18c.81.9 1.35 2.4 1.35 4.07h4.54c0-3.35-1.33-6.31-3.25-8.11" />
-                            <ellipse cx="101.5" cy="19.8" fill="#af1e1e" rx="2.96" ry="3.3" />
-                            <path fill="#94d1e0"
-                                d="M102.87 17.08c-.41-.86-.69-1.93-.69-3.08c0-2.67 1.39-4.93 3.04-4.93c1.65 0 3.04 2.26 3.04 4.93h4.48c0-5.47-3.37-9.93-7.51-9.93S97.72 8.52 97.72 14c0 1.95.43 3.76 1.16 5.3c.67 1.39 2.1 2.01 3.37 1.34c1.06-.58 1.2-2.36.62-3.56" />
-                            <path fill="#2f7889"
-                                d="M112.8 14.18c-.15-4.02-1.45-6.6-3.26-8.28c.02.06.57 1.49-.21 2.86c-.79 1.4-2.43 1.18-2.43 1.18c.81.9 1.21 2.4 1.21 4.07h1.53c1.27-.02 3.16.17 3.16.17" />
-                            <path fill="none" stroke="#1e88e5" stroke-linecap="square" stroke-miterlimit="10"
-                                d="M16.66 45.12v61.33m12.91-61.33v61.33m12.91-61.33v61.33M55.4 45.12v61.33m12.91-61.33v61.33m12.91-61.33v61.33m12.92-61.33v61.33m12.91-61.33v61.33m-90.39 0h90.39M16.66 94.18h90.39M16.66 81.92h90.39M16.66 69.65h90.39M16.66 57.39h90.39M16.66 45.12h90.39" />
-                            <g fill="#1e88e5">
-                                <circle cx="103.68" cy="48.12" r="1.26" />
-                                <circle cx="90.7" cy="48.12" r="1.26" />
-                                <circle cx="77.72" cy="48.12" r="1.26" />
-                                <circle cx="64.73" cy="48.12" r="1.26" />
-                                <circle cx="51.75" cy="48.12" r="1.26" />
-                                <circle cx="38.77" cy="48.12" r="1.26" />
-                                <circle cx="25.79" cy="48.12" r="1.26" />
-                            </g>
-                            <g fill="#1e88e5">
-                                <circle cx="103.68" cy="60.39" r="1.26" />
-                                <circle cx="90.7" cy="60.39" r="1.26" />
-                                <circle cx="77.72" cy="60.39" r="1.26" />
-                                <circle cx="64.73" cy="60.39" r="1.26" />
-                                <circle cx="51.75" cy="60.39" r="1.26" />
-                                <circle cx="38.77" cy="60.39" r="1.26" />
-                                <circle cx="25.79" cy="60.39" r="1.26" />
-                            </g>
-                            <g fill="#1e88e5">
-                                <circle cx="103.68" cy="72.65" r="1.26" />
-                                <circle cx="90.7" cy="72.65" r="1.26" />
-                                <circle cx="77.72" cy="72.65" r="1.26" />
-                                <circle cx="64.73" cy="72.65" r="1.26" />
-                                <circle cx="51.75" cy="72.65" r="1.26" />
-                                <circle cx="38.77" cy="72.65" r="1.26" />
-                                <circle cx="25.79" cy="72.65" r="1.26" />
-                            </g>
-                            <g fill="#1e88e5">
-                                <circle cx="103.68" cy="97.18" r="1.26" />
-                                <circle cx="90.7" cy="97.18" r="1.26" />
-                                <circle cx="77.72" cy="97.18" r="1.26" />
-                                <circle cx="64.73" cy="97.18" r="1.26" />
-                                <circle cx="51.75" cy="97.18" r="1.26" />
-                                <circle cx="38.77" cy="97.18" r="1.26" />
-                                <circle cx="25.79" cy="97.18" r="1.26" />
-                            </g>
-                            <g fill="#1e88e5">
-                                <circle cx="103.68" cy="84.92" r="1.26" />
-                                <circle cx="90.7" cy="84.92" r="1.26" />
-                                <circle cx="77.72" cy="84.92" r="1.26" />
-                                <circle cx="64.73" cy="84.92" r="1.26" />
-                                <circle cx="51.75" cy="84.92" r="1.26" />
-                                <circle cx="38.77" cy="84.92" r="1.26" />
-                                <circle cx="25.79" cy="84.92" r="1.26" />
-                            </g>
-                        </svg>
+            <h2 class="sm:text-3xl text-2xl font-medium title-font text-center text-gray-900 mb-20">SoftVital <br> au
+                service de votre santé</h2>
+            <div class=" sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
+
+                <div class="flex md:flex-row mb-10 items-center">
+                    <div class="rounded-lg w-1/3 overflow-hidden">
+                        <img alt="content" class="object-cover object-center "
+                            src="{{ asset('assets/images/calender.png') }}">
                     </div>
-                    <div class="flex-grow pl-6">
-
-                        <p class="leading-relaxed text-base">Accédez simplement et rapidement à une large communauté de
-                            praticiens.</p>
-
+                    <div class="">
+                        <h2 class="title-font text-2xl font-medium text-gray-900 mt-6 mb-3">Planifiez un rendez-vous sans
+                            nécessité de déplacement.</h2>
+                        <button
+                            class="flex mx-auto mt-6 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded">Button</button>
                     </div>
                 </div>
                 <div class="p-4 md:w-1/3 flex flex-col">
@@ -213,6 +371,37 @@
                         <p class="leading-relaxed text-base">Prévenez l’apparition de maladies grâce à des messages de
                             sensibilisation..</p>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="px-6 sm:px-10 md:px-24 lg:px-40 py-10">
+        <div class="rounded-xl"
+            style="background-image: url('{{ asset('assets/images/bg.jpg') }}');background-position: center; background-size: cover;">
+            <div class="relative flex flex-col md:flex-row py-10 md:px-60 justify-between items-center sm:gap-10 bg-blue-500 bg-opacity-25 hover:bg-orange-400 hover:shadow-lg transition-colors duration-300"
+                style="">
+
+                {{-- <h4 class="text-black font-bold text-3xl sm:text-4xl lg:text-5xl hover:text-white">SoftVital c'est...</h4> --}}
+                <div class="">
+                    <h1 id="typewriter" class="text-4xl font-medium text-gray-700 "></h1>
+                </div>
+                <div class="flex flex-col md:flex-row md:gap-32 mt-6 sm:mt-0">
+                    <div class="text-center">
+                        <span class="font-medium text-2xl sm:text-3xl lg:text-4xl text-blue-500">80 millions</span>
+                        <br>
+                        <span class="text-gray-500">de patients</span>
+                    </div>
+                    <div class="text-center">
+                        <span class="font-medium text-2xl sm:text-3xl lg:text-4xl text-indigo-800">900 000</span>
+                        <br>
+                        <span class="text-gray-500">utilisateurs professionnels</span>
+                    </div>
+                    <div class="text-center">
+                        <span class="font-medium text-2xl sm:text-3xl lg:text-4xl text-indigo-800">97%</span>
+                        <br>
+                        <span class="text-gray-500">evenements</span>
                     </div>
                 </div>
             </div>
@@ -270,12 +459,80 @@
 
         </div>
     </section>
-    <section class="w-full h-screen bg-blue-200 py-20 px-80">
-        <div class="flex justify-center items-center gap-40">
-            <h4 class="text-white font-bold text-4xl">SoftVital c'est...</h4>
-            <p class="text-center"><span class="font-medium text-3xl text-indigo-800">80 millions</span><br>de patients</p>
-            <p class="text-center"><span class="font-medium text-3xl text-indigo-800">900 000</span><br>utilisateurs professionnels</p>
-            <p class="text-center"><span class="font-medium text-3xl text-indigo-800">97%</span><br>evenements</p>
+
+
+
+    <div class="slideshow-container w-full">
+        <div>
+            @foreach ($posts as $post)
+                <div class="mySlides1 w-10/12 mx-auto">
+                    <div class="flex">
+                        <div class="flex bg-blue-500 p-4 rounded-lg">
+                            <div class="flex flex-col w-2/3 pr-4 bg">
+                                <p class="text-2xl font-black mb-2 text-gray-50">{{ $post->title }}</p>
+                                <p class="text-lg font-light leading-5 text-gray-300">{{ $post->description }}.</p>
+                                <p class="text-lg font-light leading-5 text-gray-300 mt-6">{{ $post->user->nom }}</p>
+                                {{-- <p>{{ $post->user->medecin->specialite->specialite }}</p> --}}
+
+                                <div class="flex h-full items-end text-gray-300 hover:text-gray-50">
+                                    <button class="text-sm font-semibold flex items-center space-x-2">
+                                        <span>BOOK NOW</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="w-1/3">
+                                <img class="w-full hover:animate-bounce rounded-lg"
+                                    src="{{ asset('storage/' . $post->image) }}" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </div>
-    </section>
+        <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
+    </div>
+
+
+
+    <script src="{{ asset('assets/js/slider.js') }}"></script>
+
+    
+    
+    <script>
+    const words = ["SoftVital", "presente"]
+    let i = 0;
+    let j = 0;
+    let currentWord = "";
+    let isDeleting = false;
+    
+    function type() {
+      currentWord = words[i];
+      if (isDeleting) {
+        document.getElementById("typewriter").textContent = currentWord.substring(0, j-1);
+        j--;
+        if (j == 0) {
+          isDeleting = false;
+          i++;
+          if (i == words.length) {
+            i = 0;
+          }
+        }
+      } else {
+        document.getElementById("typewriter").textContent = currentWord.substring(0, j+1);
+        j++;
+        if (j == currentWord.length) {
+          isDeleting = true;
+        }
+      }
+      setTimeout(type, 300);
+    }
+    
+    type();
+    </script>
 @endsection

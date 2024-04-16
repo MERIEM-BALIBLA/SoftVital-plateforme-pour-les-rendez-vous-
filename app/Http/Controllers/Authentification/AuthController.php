@@ -7,7 +7,7 @@ use App\Models\Medecin\Medecin;
 use App\Models\Medecin\Specialite;
 use App\Models\Role;
 use App\Models\User;
-use App\Repositories\AuthRepository;
+use App\Repositories\AuthInterfaceRepository;
 use App\Repositories\MailRepository;
 
 use App\Http\Requests\RegisterRequest;
@@ -23,79 +23,48 @@ class AuthController extends Controller
 {
     protected $userRepository;
 
-    public function __construct(MailRepository $mailRepository)
+    public function __construct(AuthInterfaceRepository $authInterfaceRepository)
     {
-        $this->userRepository = new AuthRepository();
-        $this->mailRepository = $mailRepository;
+        $this->userRepository = $authInterfaceRepository;
     }
-   
+
 
     public function index()
     {
-        $villes = Ville::get();
-        $specialites = Specialite::get();
-        return view('Authentification.index', compact('villes', 'specialites'));
+        return $this->userRepository->index();
     }
 
+    // start register
     public function register(RegisterRequest $request)
     {
-        $validatedData = $request->validated();
-
-        // Fetch the role ID based on the role selected in the form
-        $role = Role::where('role', $validatedData['role'])->first();
-
-        // Set the role_id to the fetched role's ID
-        $validatedData['role_id'] = $role->id;
-
-        // Récupérer l'ID de la ville à partir des données utilisateur
-        $villeId = $validatedData['ville'];
-
-        // Ajouter l'ID de la ville au tableau $validatedData
-        $validatedData['ville_id'] = $villeId;
-
-        try {
-            // Créer l'utilisateur avec le rôle spécifié
-            $user = $this->userRepository->createUser($validatedData);
-
-            // Attacher le rôle à l'utilisateur
-            $user->role()->attach($role->id);
-
-            // Si le rôle est "médecin", valider les données spécifiques au médecin
-            if ($role->role === 'medecin') {
-                $specialite = $request->input('specialite');
-                $medecinData = [
-                    'user_id' => $user->id,
-                    'specialite_id' => $specialite,
-                    'cabinet' => $request->input('cabinet'),
-                    'adresse_cabinet' => $request->input('adresse_cabinet'),
-                ];
-                $this->userRepository->createMedecin($medecinData);
-
-            }
-
-            auth()->login($user);
-
-            return redirect()->route('home');
-        } catch (\PDOException $e) {
-            if ($e->getCode() === '23000' && strpos($e->getMessage(), 'Duplicate entry') !== false) {
-                return redirect('Authentification')->with("error", "L'adresse e-mail que vous avez entrée est déjà associée à un compte. Veuillez utiliser une autre adresse e-mail.");
-            } else {
-                return redirect('Authentification')->with("error", "Une erreur s'est produite lors de la création de votre compte. Veuillez réessayer plus tard.");
-            }
+        $this->userRepository->createUser($request);
+        
+        // Vérifie si le champ 'role' dans la demande a la valeur 'medecin'
+        if ($request->role === 'medecin') {
+            return redirect()->back()->with('success', 'Le compte a été créé avec succès. Vous êtes maintenant enregistré en tant que médecin.');
+        } else {
+            return redirect('/');
         }
     }
+    
+    
+    // end register
 
+    // start logout
     public function logout(Request $request)
     {
         $this->userRepository->logout($request);
         return redirect()->route('/');
     }
+    // end login
 
+    // start login
     public function login(Request $request)
     {
-        $this->userRepository->login($request);
-        return redirect()->route('home');
+        // if($request->hasRole('mdecin'))
+        return $this->userRepository->login($request);
     }
+    // end login
 
     public function ForgetPassword(Request $request)
     {
@@ -103,27 +72,23 @@ class AuthController extends Controller
             'email' => 'required|email|exists:users'
         ]);
 
-        // Récupérer l'utilisateur correspondant à l'adresse e-mail fournie
-        // $user = User::where('email', $request->email)->first();
-        $user = $this->userRepository->getUserByEmail($request->email);
+        $email = $request->email;
 
+        $user = $this->userRepository->getUserByEmail($email);
 
         if ($user) {
-            // Si l'utilisateur existe, vous pouvez accéder à son nom
             $userName = $user->nom; // Supposons que le nom d'utilisateur soit stocké dans la colonne 'name' de votre table 'users'
 
             $token = Str::random(64);
-            $this->userRepository->createOrUpdatePasswordResetToken($request->email, $token);
+            $this->userRepository->createOrUpdatePasswordResetToken($email, $token);
+            $this->userRepository->sendPasswordResetEmail($email, $token, $userName);
 
-            Mail::send('email.forget_password', ['token' => $token, 'userName' => $userName], function ($message) use ($request) {
-                $message->to($request->email);
-                $message->subject('Reset your password');
-            });
             return redirect()->to('Authentification')->with("success", "we have sent an email with instructions to reset your password.");
         } else {
             return redirect()->back()->with("error", "No user found with this email address");
         }
     }
+
 
     public function resetPassword(Request $request)
     {
@@ -132,23 +97,15 @@ class AuthController extends Controller
             'password' => 'required|confirmed|min:4',
         ]);
 
-        // Find the user by email
-        $user = User::where('email', $request->email)->first();
+        $email = $request->email;
+        $password = $request->password;
 
-        // Check if the user exists
-        if ($user) {
-            // Update the user's password
-            $user->password = Hash::make($request->password);
-            $user->save();
-
-            // Redirect the user to the login page with a success message
+        if ($this->userRepository->resetPassword($email, $password)) {
             return redirect('Authentification')->with('status', 'Your password has been reset!');
         } else {
-            // If the user does not exist, redirect back with an error message
             return back()->withErrors(['email' => 'User not found']);
         }
     }
-
 }
 
 

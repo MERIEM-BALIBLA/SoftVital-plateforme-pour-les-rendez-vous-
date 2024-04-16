@@ -1,6 +1,7 @@
 @include('layouts.head')
 
-<body class="relative flex flex-col h-screen">
+    </body>
+<body class="relative flex flex-col h-screen dark:bg-gray-800 bg-gray-200">
     <!-- Navbar -->
     <nav class="fixed top-0 left-0 right-0 z-50">
 
@@ -9,7 +10,7 @@
     <!--  Main Content -->
 
     @yield('content')
-    {{-- <footer class="w-full text-white text-center clear-both">
+    {{-- <footer>
         @include('layouts.footer')
     </footer> --}}
 
