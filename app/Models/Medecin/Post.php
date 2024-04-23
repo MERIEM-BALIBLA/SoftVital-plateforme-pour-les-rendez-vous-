@@ -15,6 +15,7 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+<<<<<<< HEAD
 
     public function comments()
     {
@@ -32,4 +33,6 @@ class Post extends Model
         return $this->reactions()->where('user_id', auth()->id())->exists();
     }
 
+=======
+>>>>>>> ab0b16a8d40deba901b275864c75f50097109340
 }

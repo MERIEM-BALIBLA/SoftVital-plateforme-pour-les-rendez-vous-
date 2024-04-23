@@ -1,5 +1,6 @@
 @extends('Layouts.app')
 @section('content')
+<<<<<<< HEAD
     <div class="md:py-10 md:px-20 bg-white md:mx-20 mt-4 rounded-lg shadow-md">
         @if (session('error'))
             <div class="alert alert-danger">
@@ -7,6 +8,9 @@
             </div>
         @endif
 
+=======
+    <div class="md:py-10 md:px-20 bg-white md:mx-20 my-28 rounded-lg shadow-md">
+>>>>>>> ab0b16a8d40deba901b275864c75f50097109340
         <div class="">
 
             <!-- Tab Buttons -->
@@ -63,8 +67,13 @@
                                             <option value="inactive"
                                                 {{ $travail->status === 'inactive' ? 'selected' : '' }}>inactive</option>
                                         </select>
+<<<<<<< HEAD
                                     </td>
                                     <input type="hidden" name="activeTab" value="tab2">
+=======
+
+                                    </td>
+>>>>>>> ab0b16a8d40deba901b275864c75f50097109340
                                     <td class="p-3">
                                         <button class="update-event-btn" type="submit">
                                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -82,6 +91,11 @@
                                     <form action="{{ route('event.destroy', ['event' => $travail->id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
+<<<<<<< HEAD
+=======
+                                        {{-- <input type="hidden" name="activeTab" value="tab2"> --}}
+                                        {{-- <input type="hidden" name="activeTab" value="tab2"> --}}
+>>>>>>> ab0b16a8d40deba901b275864c75f50097109340
                                         <input type="hidden" name="activeTab" value="tab2">
                                         <button type="submit"> <!-- Assurez-vous que type="submit" est spécifié -->
                                             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
@@ -136,7 +150,10 @@
                                         <input type="text" name="end" value='{{ $evenement->end }}'
                                             class="bg-transparent border-b-2 border-gray-300 py-2">
                                     </td>
+<<<<<<< HEAD
                                     <input type="hidden" name="activeTab" value="tab3">
+=======
+>>>>>>> ab0b16a8d40deba901b275864c75f50097109340
                                     <input type="hidden" name="type" value='{{ $evenement->type }}'>
                                     <input type="hidden" value="inactive" name="status">
                                     <td class="p-3">
@@ -156,6 +173,10 @@
                                         method="POST">
                                         @csrf
                                         @method('DELETE')
+<<<<<<< HEAD
+=======
+                                        {{-- <input type="hidden" name="activeTab" value="tab3"> --}}
+>>>>>>> ab0b16a8d40deba901b275864c75f50097109340
                                         <input type="hidden" name="activeTab" value="tab3">
 
                                         <button type="submit"> <!-- Assurez-vous que type="submit" est spécifié -->
@@ -272,7 +293,11 @@
 
     {{-- add popup --}}
     <section id="add-popup" class="hidden">
+<<<<<<< HEAD
         <div id="" tabindex="-1"
+=======
+        <div id="add-popup" tabindex="-1"
+>>>>>>> ab0b16a8d40deba901b275864c75f50097109340
             class="bg-black/50 fixed top-0 right-0 left-0 z-50 h-full items-center justify-center flex">
             <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                 <div class="relative bg-white py-10 px-4 shadow sm:rounded-lg sm:px-10">
@@ -361,7 +386,12 @@
                                     eventTitleField.style.display = 'block';
                                     eventRangeField.style.display = 'none';
                                     titleInput.required = true;
+<<<<<<< HEAD
                                 } else {
+=======
+                                } 
+                                else {
+>>>>>>> ab0b16a8d40deba901b275864c75f50097109340
                                     eventTitleField.style.display = 'none';
                                     eventRangeField.style.display = 'block';
                                     titleInput.required = false;
@@ -470,7 +500,11 @@
     {{-- ------------------------- --}}
 
     {{-- edit avec translation --}}
+<<<<<<< HEAD
     {{-- <script>
+=======
+    <script>
+>>>>>>> ab0b16a8d40deba901b275864c75f50097109340
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -501,7 +535,11 @@
             });
             calendar.render();
         });
+<<<<<<< HEAD
     </script> --}}
+=======
+    </script>
+>>>>>>> ab0b16a8d40deba901b275864c75f50097109340
     {{-- ----------------------- --}}
     {{-- popup add script --}}
     <script>
@@ -517,6 +555,9 @@
     </script>
 
     {{-- End popup add script  --}}
+<<<<<<< HEAD
 
     <script></script>
+=======
+>>>>>>> ab0b16a8d40deba901b275864c75f50097109340
 @endsection

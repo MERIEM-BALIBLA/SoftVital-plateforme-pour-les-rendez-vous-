@@ -50,4 +50,7 @@
 <script>
     CKEDITOR.replace('description');
 </script>
+<<<<<<< HEAD
 @endsection
+=======
+>>>>>>> ab0b16a8d40deba901b275864c75f50097109340

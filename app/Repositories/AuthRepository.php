@@ -58,7 +58,10 @@ class AuthRepository implements AuthInterfaceRepository
                     'specialite_id' => $specialite,
                     'cabinet' => $request->input('cabinet'),
                     'adresse_cabinet' => $request->input('adresse_cabinet'),
+<<<<<<< HEAD
                     // 'image' => $request->input('image'),
+=======
+>>>>>>> ab0b16a8d40deba901b275864c75f50097109340
                 ];
                 // Créer un médecin
                 Medecin::create($medecinData);

@@ -65,6 +65,7 @@ class User extends Authenticatable
         return $this->hasOne(Medecin::class);
     }
 
+<<<<<<< HEAD
     public function posts()
     {
         return $this->hasMany(Post::class);
@@ -76,4 +77,9 @@ class User extends Authenticatable
     }
     
 
+=======
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
+>>>>>>> ab0b16a8d40deba901b275864c75f50097109340
 }

@@ -1,6 +1,10 @@
 @extends('Layouts.app')
 @section('content')
+<<<<<<< HEAD
     <div class="md:mx-20 md:p-10 bg-white rounded-xl">
+=======
+    <div class="md:m-20 md:p-10 bg-white rounded-xl">
+>>>>>>> ab0b16a8d40deba901b275864c75f50097109340
         <table class="min-w-full divide-y divide-gray-200 border">
             <thead>
                 <tr class="bg-gray-300">
@@ -40,7 +44,11 @@
                                 @method('PUT')
 
                                 <select name="statut" class="border rounded-md p-1 select-statut">
+<<<<<<< HEAD
                                     <option value="en atente" {{ $reservation->reservation === 'en atente' ? 'selected' : '' }}>En attente</option>
+=======
+                                    <option value="en attente" {{ $reservation->reservation === 'en atente' ? 'selected' : '' }}>En attente</option>
+>>>>>>> ab0b16a8d40deba901b275864c75f50097109340
                                     <option value="accepter" {{ $reservation->reservation === 'accepter' ? 'selected' : '' }}>Accepter</option>
                                     <option value="refuser" {{ $reservation->reservation === 'refuser' ? 'selected' : '' }}>Refuser</option>
                                 </select>
